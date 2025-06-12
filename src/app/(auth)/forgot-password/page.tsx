@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 const ForgotPage = () => {
   const t = useTranslations("auth");
   return (
-    <div>
+    <div className="container">
         <h1>{t("forgotPassword")}</h1>
         <ForgotForm />
     </div>
