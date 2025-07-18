@@ -8,9 +8,11 @@ import {
 } from "@/components/ui/form";
 import { SignInInput } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CheckCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { passwordSchema, phoneSchema } from "../schemas";
 
@@ -35,7 +37,7 @@ export function SignInForm() {
   ];
 
   const formSchema = z.object({
-    phone: phoneSchema(requiredMessage),
+    phone: phoneSchema(requiredMessage, errors("invalidPhone")),
     password: passwordSchema(requiredMessage, errors("minPassword")),
   });
 
@@ -48,11 +50,18 @@ export function SignInForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    toast("Event has been created", {
+      icon: <CheckCircle className="text-green-600 " />,
+      className: " !gap-5",
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      closeButton: true,
+      position: "top-center",
+    })
     console.log(values);
   }
 
   return (
-    <div className="xl:w-1/2 max-xl:bg-white xl:p-12 xl:ps-0 p-6 rounded-md ">
+    <div className="">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {/* name email phone  */}
@@ -76,6 +85,7 @@ export function SignInForm() {
             {t("forgotPassword")}
           </Link>
           <Button
+            loading={form.formState.isSubmitting}
             type="submit"
             className="w-full text-lg font-semibold h-14 rounded-lg "
           >

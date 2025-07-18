@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { emailSchema, nameSchema, passwordSchema, phoneSchema } from "../schemas";
 import { Checkbox } from "@/components/ui/checkbox";
+import { CheckCircle } from "lucide-react";
+import { toast } from "sonner";
 
 
 export function SignUpForm() {
@@ -57,7 +59,7 @@ export function SignUpForm() {
     .object({
       name:nameSchema(requiredMessage, errors("minName"), errors("maxName")),
       email: emailSchema(requiredMessage, errors("invalidEmail")),
-      phone: phoneSchema(requiredMessage),
+      phone: phoneSchema(requiredMessage, errors("invalidPhone")),
       password:passwordSchema(requiredMessage, errors("minPassword")),
       password_confirmation: passwordSchema(requiredMessage, errors("minPassword")),
     })
@@ -78,13 +80,20 @@ export function SignUpForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    toast("Event has been created", {
+      icon: <CheckCircle className="text-green-600 " />,
+      className: " !gap-5",
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      closeButton: true,
+      position: "top-center",
+    })
     console.log(values);
   }
 
   return (
-    <div className="xl:w-1/2 max-xl:bg-white xl:p-12 xl:ps-0 p-6 rounded-md ">
+    <div className="">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {/* name email phone  */}
           {inputs.map((input) => (
             <FormField

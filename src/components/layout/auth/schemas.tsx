@@ -11,7 +11,9 @@ export const nameSchema = (
     .min(3, { message: msgMin })
     .max(40, { message: msgMax });
 
-export const phoneSchema = (msg: string) => z.string().nonempty(msg);
+export const phoneSchema = (msg: string, msgInvalid: string) => z.string().nonempty(msg).regex(/^01[0-9]{9}$/, {
+  message: msgInvalid, // الرسالة عند عدم تطابق النمط
+});
 
 export const passwordSchema = (msgRequired: string, msgMin: string) =>
   z.string().nonempty(msgRequired).min(8, msgMin);

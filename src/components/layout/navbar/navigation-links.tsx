@@ -29,6 +29,7 @@ export function NavigationLinks({ t, setIsOpen, flexDir = "row" }: IProps) {
             <Link
               href={item.href}
               onClick={handleClose}
+              prefetch={true}
               className={`text-sm font-medium transition-colors hover:text-primary ${
                 isActive
                   ? "text-primary font-semibold"

@@ -6,6 +6,7 @@ import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
+import { Toaster } from "@/components/ui/sonner";
 
 const almarai = Almarai({
   variable: "--font-almarai",
@@ -36,6 +37,8 @@ export default async function RootLayout({
           <Navbar />
           <main className="min-h-[calc(100vh-4rem)]">{children}</main>
           <Footer />
+          <Toaster />
+
         </NextIntlClientProvider>
       </body>
     </html>
