@@ -31,9 +31,9 @@ const MobileNav = ({ t, user }: IProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-x-0 top-16 !z-1 bg-white shadow-md border-t border-gray-200 py-6 flex flex-col items-center gap-4"
           >

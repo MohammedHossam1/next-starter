@@ -1,6 +1,5 @@
 'use client'
 import { EmblaOptionsType } from 'embla-carousel'
-import Fade from 'embla-carousel-fade'
 import useEmblaCarousel from 'embla-carousel-react'
 import React, { ReactNode } from 'react'
 import { DotButton, useDotButton } from './EmblaCarouselDotButton'
@@ -23,14 +22,14 @@ type PropType = {
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
   const l = useLocale();
-  const { options, fade = true, numbers, buttonPositions = 'center', children } = props
+  const { options, numbers, buttonPositions = 'center', children } = props
   const OPTIONS: EmblaOptionsType = {
     loop: true,
     duration: 30,
     direction: l === 'ar' ? 'rtl' : 'ltr',
     ...options
   };
-  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS, fade ? [Fade()] : [])
+  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS, [])
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
   const buttonPosition = buttonPositions == "center" ? "justify-center" : buttonPositions == "end" ? "justify-end" : "justify-start"

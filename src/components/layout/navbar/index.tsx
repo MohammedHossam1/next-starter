@@ -13,7 +13,7 @@ export default function Navbar() {
   const t = useTranslations("navbar");
 
   return (
-    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="border-b bg-background/95">
       <div className="container mx-auto flex h-16 items-center justify-between gap-4  gap-x-6">
         <Logo />
         {/* Desktop Links */}

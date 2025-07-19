@@ -1,6 +1,6 @@
+'use server';
 import { getCookie } from "@/services";
 import { getLocale } from "next-intl/server";
-
 export const getHeaders = async (
   token: boolean,
   contentType: "json" | "form" = "json"
@@ -43,20 +43,28 @@ export const getDataReactQuery = async (args: {
 };
 
 // جلب البيانات العادي
-export const getData = async (args: { url: string; token?: boolean }) => {
+export const getData = async (args: { url: string; token?: boolean; cashed?: boolean }) => {
   const headers = await getHeaders(args.token || false);
+
   if (args.token && !headers) {
     return { code: 401, success: false };
   }
+
+  const fetchOptions: RequestInit = {
+    ...(headers && { headers }),
+    ...(args.cashed && { cache: "force-cache" }), 
+  };
+
   try {
-    const response = await fetch(args.url, headers ? { headers } : {});
+    const response = await fetch(args.url, fetchOptions);
     const data = await response.json();
     return { code: 200, success: true, data };
   } catch (err: any) {
     const message = err?.message || "Unexpected error occurred";
-    return { code: 400, success: true, data: message };
+    return { code: 400, success: false, data: message };
   }
 };
+
 
 // إرسال البيانات (POST)
 export const postData = async (args: {
